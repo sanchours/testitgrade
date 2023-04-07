@@ -61,23 +61,23 @@ $sql3 = mysqli_query($mysql, "SELECT * FROM `houses`");
 	</div>
 </div>
 <header id="header">
-	<div id="logo"  onclick="slowScroll('#top')">
-	<a href="index.php"><img  class="mg" src="logo.png"></a>
+	<div id="logo" onclick="slowScroll('#top')">
+		<a href="index.php"><img  class="mg" src="logo.png"></a>
 	</div>
 	<div id="about">
 	</div>
 	<div id="vhod">
 		<?php if($_COOKIE['user'] == ''): ?>
-			<a href="house.php" class="popap-link">Недвижимость</a>
-			<a href="#papup_1" class="popap-link">Вход</a>
+			<a href="house.php" class="link">Недвижимость</a>
+			<a href="#papup_1" class="link">Вход</a>
 		<?php elseif ($_COOKIE['user'] == 'admin') :?>
 			<a class="profile_1" href="">Привет, <?=$_COOKIE['user'] ?>!</a>
-			<a href="house.php" class="popap-link">Недвижимость</a>
+			<a href="house.php" class="link">Недвижимость</a>
 			<a href="create.php">Добовление недвижимости</a>
 			<a href="/exit.php">Выйти</a>
 		<?php else :($_COOKIE['user']) ?>
 			<a class="profile_1" href="">Привет, <?=$_COOKIE['user'] ?>!</a>
-			<a href="house.php" class="popap-link">Недвижимость</a>
+			<a href="house.php" class="link">Недвижимость</a>
 			<a href="/exit.php">Выйти</a>
 		<?php endif; ?>
 	</div>
@@ -87,47 +87,58 @@ $sql3 = mysqli_query($mysql, "SELECT * FROM `houses`");
 		<h3></h3>
 	</div>
 	<div id="main">
-		<div class="search1" onload="onload();">
-			<input type="text" name="sertch" class="enter" value="Объект 10" id="src"/>
-			<input type="button" value="Поиск" id="kk" />
-		</div>
-		<div class="search">
-			<a data-id="1" class="btn descending">по возрастанию</a>
-		</div>
-		<div class="search">
-			<a data-id="1" class="btn ascending">по убыванию</a>
-		</div>
-		<div class="intros">
-			<?php while ($result3 = mysqli_fetch_array($sql3)):?>
-				<div class="block" data-quantity="1">
-				    <div class="inside">
-						<div class="img-profle">
-							<img class="img-house" src="images/<?= $result3['img']?>">
-						</div>
-                    <div class="description">
-						<a class="catalog_detail_page_url" href="house page.php?id=<?= $result['House_id']?>"></a>
-						<div class="name"><?php echo"{$result3['Name']}"; ?></div>
-						<div class="text1"><?php echo ($result3['Adress']) ?></div>
-						<div class="text1"><?php echo ($result3['Description']) ?></div>
-                    </div>
-                    <div class="price">
+		<form class="form-horiz"  action="real_estate.php" method="post" enctype="multipart/form-data">
+			<label id="le1" >Добавление недвижимости</label><br>
+			<div class="form-group">
+				<label id="le1" >Название недвижимости</label>
+				<div class="im">
+					<input class="text-field__input" type="text" placeholder="" name="Name"  value=""></input>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="form-group">
+					<label id="le1" >Адрес</label>
+					<div  class="im">
+						<input class="text-field__input" type="text"  placeholder="Ведите текст" name="Adress"></input>
+					</div>
+				</div>
+				<label id="le2" >Цена недвижимости</label>
+				<div  class="im">
+					<input class="text-field__input" type="text" placeholder="" name="price">
+				</div>
+			</div>
+			<div class="form-group">
+				<label id="le1" >Статус</label>
+				<p><select name="type">
+						<option value="1">Актуальна</option>
+						<option value="2">Не актуальна</option>
+					</select></p>
+			</div>
 
-						<div class="text"><?php echo ($result3['Price']) ?>₽</div>
-                    </div>
-						<?php if($_COOKIE['user'] == ''): ?>
-						<?php elseif ($_COOKIE['user'] == 'admin') :?>
-                <div class="add">
-                	<a data-id="<?php echo"{$result3['House_id']}"; ?>" href="house page.php?id=<?= $result3['House_id']?>" class="btn item_add_to_cart2">Посмотреть</a>
-                </div>
-                <div class="add">
-                    <a data-id="<?php echo"{$result3['House_id']}"; ?>" class="btn item_add_to_cart1">удалить</a>
-                </div>
-						<?php else :($_COOKIE['user']) ?>
-						<?php endif; ?>
-                </div>
-            </div>
-            <?php endwhile; ?>
-		</div>
+			<div class="form-group">
+				<label id="le1" >Описание</label>
+				<div  class="im">
+					<textarea class="text-field__input" type="text"  placeholder="Ведите текст" name="Description"></textarea>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label id="le3" >Загрузите картинку товара</label><br>
+				<div id="input" class="input__wrapper">
+					<input name="filename" type="file"  id="input__file" class="input input__file" >
+					<label for="input__file" class="input__file-button">
+						<span class="input__file-icon-wrapper"><img class="input__file-icon" src="./images/add.svg" alt="Выбрать файл" width="25"></span>
+						<span class="input__file-button-text">Выберите файл</span>
+					</label>
+				</div>
+			</div>
+			<br>
+			<div class="form-group">
+				<div><br>
+					<button class="btn" type="submit" class="btnn">Добавить товар</button>
+				</div>
+			</div>
+		</form>
 	</div>
 
 <div id="PD">
@@ -223,6 +234,7 @@ $sql3 = mysqli_query($mysql, "SELECT * FROM `houses`");
 		var kk = $('#kk');
 
 		kk.click(function() {
+			alert(sertch.val());
 			$.ajax({
 				method: "POST",
 				url: "sertch.php",

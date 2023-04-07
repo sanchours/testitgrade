@@ -1,4 +1,4 @@
-<?php
+<?php 
 $Name = trim($_POST['Name']);
 $price = trim($_POST['price']);
 $type = trim($_POST['type']);
@@ -19,6 +19,6 @@ $mysql = new mysqli('localhost','root','root','test_itgrade');
  $mysql -> close();
 
 
-    header('location: /create.php');
+    header('location: /creature.php');
 
  ?>

@@ -58,7 +58,7 @@
 		 	<?php elseif ($_COOKIE['user'] == 'admin') :?>
 		 	<a class="profile_1" href="">Привет, <?=$_COOKIE['user'] ?>!</a>
 				<a href="house.php" class="popap-link">Недвижимость</a>
-		 	<a href="create.php">Добовление недвижимости</a>
+		 	<a href="creature.php">Добовление недвижимости</a>
 		 	<a href="/exit.php">Выйти</a>
 		 	<?php else :($_COOKIE['user']) ?>
 		 	<a class="profile_1" href="">Привет, <?=$_COOKIE['user'] ?>!</a>
